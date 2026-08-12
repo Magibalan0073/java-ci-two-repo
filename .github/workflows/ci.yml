@@ -49,15 +49,13 @@ jobs:
           docker push \
             magibalan07/spring-boot-crud-postgres-adminer:${VERSION}
 
-      - name: Trigger CD Repository
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.CD_REPO_TOKEN }}" \
-            https://api.github.com/repos/Magibalan0073/java-k8-cd/dispatches \
-            -d '{
-              "event_type":"deploy",
-              "client_payload":{
-                "image_tag":"'"${VERSION}"'"
-              }
-            }'
+      - name: Trigger Deploy Repository
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: Jashmibti/springboot-crud-deploy
+          event-type: deploy-app
+          client-payload: |
+            {
+              "image_tag": "${{ github.sha }}"
+            }

@@ -48,15 +48,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
  
-      # 6. Login to GHCR
-      - name: Login to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+     
  
-      # 7. Build Docker image
+      # 6. Build Docker image
       - name: Build Docker image
         run: |
           docker build \
@@ -64,12 +58,12 @@ jobs:
             -t ${{ env.GHCR_IMAGE }}:latest \
             .
  
-      # 8. Push image to DockerHub
+      # 7. Push image to DockerHub
       - name: Push image to DockerHub
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-crud-postgres-adminer:latest
  
-      # 9. Push image to GHCR
+      # 8. Push image to GHCR
       - name: Push image to GHCR
         run: |
           docker push ${{ env.GHCR_IMAGE }}:latest

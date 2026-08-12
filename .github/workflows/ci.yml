@@ -53,10 +53,10 @@ jobs:
       - name: Trigger Deploy Repository
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          token: ${{ secrets.CD_REPO_TOKEN }}
           repository: Magibalan0073/java-k8-cd
           event-type: deploy-app
           client-payload: |
             {
-              "image_tag": "${{ env.VERSION }}"
+              "image_tag": "${{ github.sha }}"
             }

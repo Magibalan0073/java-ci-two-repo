@@ -2,9 +2,9 @@ name: Java CI
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
-  workflow_dispatch: 
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
   JAVA_VERSION: '21'
@@ -31,7 +31,7 @@ jobs:
         run: mvn package -DskipTests
 
       - name: Extract Version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        run: echo "VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -58,5 +58,5 @@ jobs:
           event-type: deploy-app
           client-payload: |
             {
-              "image_tag": "${{ github.sha }}"
+              "image_tag": "${{ env.VERSION }}"
             }

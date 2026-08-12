@@ -12,6 +12,7 @@ permissions:
 env:
   JAVA_VERSION: '21'
   APP_NAME: spring-boot-crud-postgres-adminer
+  GHCR_IMAGE: ghcr.io/pattabhi45/spring-boot-crud-postgres-adminer
 
 jobs:
   build-and-push:
@@ -59,16 +60,16 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:latest \
-            -t ghcr.io/${{ github.repository_owner }}/${{ env.APP_NAME }}:latest \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-crud-postgres-adminer:latest \
+            -t ${{ env.GHCR_IMAGE }}:latest \
             .
 
-      # 8. Push to DockerHub
+      # 8. Push image to DockerHub
       - name: Push image to DockerHub
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-crud-postgres-adminer:latest
 
-      # 9. Push to GHCR
+      # 9. Push image to GHCR
       - name: Push image to GHCR
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/${{ env.APP_NAME }}:latest
+          docker push ${{ env.GHCR_IMAGE }}:latest

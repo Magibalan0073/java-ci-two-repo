@@ -12,7 +12,7 @@ permissions:
 env:
   JAVA_VERSION: '21'
   APP_NAME: spring-boot-crud-postgres-adminer
-  GHCR_IMAGE: ghcr.io/pattabhi45/spring-boot-crud-postgres-adminer
+  GHCR_IMAGE: ghcr.io/Magibalan0073/spring-boot-crud-postgres-adminer
  
 jobs:
   build-and-push:

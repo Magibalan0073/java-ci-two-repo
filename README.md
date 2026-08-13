@@ -112,6 +112,9 @@ curl -i http://localhost:8080/api/products
 curl -i http://localhost:8080/api/products/1
 ```
 
+hii
+
+
 ### Update
 
 ```bash
